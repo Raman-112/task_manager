@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity</title>
+    <style>
+                body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f0f2f5;
+        }
+
+        .header {
+            background-color: #131921;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .auth-buttons {
+            display: flex;
+        }
+
+        .auth-buttons button {
+            background-color: #febd69;
+            border: none;
+            padding: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .page {
+            display: none;
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .active {
+            display: block;
+        }
+
+        .page h2 {
+            color: #131921;
+            text-align: center;
+        }
+
+        .page input, .page button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            background-color: #131921;
+            color: #ffffff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer .column {
+            width: 23%;
+            margin-bottom: 20px;
+        }
+
+        .footer h3 {
+            color: #febd69;
+            margin-bottom: 10px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer a:hover {
+            color: #febd69;
+        }
+
+        .footer .social-icons a {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        #loginSection {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        #signupSection {
+            max-width: 300px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+.gon{
+
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #febd69;
+    
+}
+        #signupSection h2 {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #131921;
+        }
+
+        .auth-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .auth-link a {
+            color: #febd69;
+            text-decoration: none;
+        }
+
+        .auth-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="Screenshot 2024-09-13 193131.png" alt="Infinity Logo" >
+
+        </div>
+        
+        <span class="gon">Infinity Task Manager</span>
+        <div class="auth-buttons">
+            <button id="loginButton">Login</button>
+            <button id="logoutButton" style="display: none;">Logout</button>
+        </div>
+    </header>
+
+    <div id="authPage" class="page active">
+        <div>
+            <h2>Login</h2>
+            <input type="text" id="loginUsername" placeholder="Username">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button id="submitLogin">Login</button>
+            <p id="loginMessage" style="color: red; text-align: center;"></p>
+        </div>
+        <p style="color: green; text-align: center;">Username: "Admin" & Password: "Admin123"</p>
+        
+        
+        <div>
+            <h2>Sign Up</h2>
+            <input type="text" id="signupUsername" placeholder="Username">
+            <input type="password" id="signupPassword" placeholder="Password">
+            <button id="submitSignup">Sign Up</button>
+            <p id="signupMessage" style="color: green; text-align: center;"></p>
+        </div>
+    </div>
+
+    <div id="adminDashboard" class="page">
+        <h2>Admin Dashboard</h2>
+        <button id="addEmployeeButton">Add Employee</button>
+        <button id="addTaskButton">Assign Task</button>
+
+        <div id="addEmployeeForm" style="display: none;">
+            <h3>Add Employee</h3>
+            <input type="text" id="newEmployeeUsername" placeholder="Employee Username">
+            <input type="password" id="newEmployeePassword" placeholder="Employee Password">
+            <button id="submitAddEmployee">Add Employee</button>
+        </div>
+
+        <div id="addTaskForm" style="display: none;">
+            <h3>Assign Task</h3>
+            <select id="employeeSelect"></select>
+            <input type="text" id="taskDescription" placeholder="Task Description">
+            <input type="date" id="taskDueDate">
+            <input type="time" id="taskDueTime">
+            <button id="submitAddTask">Add Task</button>
+        </div>
+
+        <div id="adminContent"></div>
+        <div id="taskReview">
+            <h3>Review Tasks</h3>
+            <button id="reviewTasksButton">Review Tasks</button>
+            <div id="taskReviewContent"></div>
+        </div>
+    </div>
+
+    <div id="employeeDashboard" class="page">
+        <h2>Employee Dashboard</h2>
+        <div class="tasks" id="employeeTasks"></div>
+    </div>
+
+        <footer class="footer">
+            <div class="column">
+                <h3>About Us</h3>
+                <a href="#">Our Heritage</a>
+                <a href="#">Overview</a>
+                <a href="#">Coffeehouse</a>
+                <a href="#">Our Company</a>
+            </div>
+            <div class="column">
+                <h3>Responsibility</h3>
+                <a href="#">Diversity</a>
+                <a href="#">Community</a>
+                <a href="#">Ethical Sourcing</a>
+                <a href="#">Environment Stewardship</a>
+            </div>
+            <div class="column">
+                <h3>Quick Links</h3>
+                <a href="#">Privacy Policy</a>
+                <a href="#">FAQs</a>
+                <a href="#">Customer Service</a>
+                <a href="#">Delivery</a>
+            </div>
+            <div class="column social-icons">
+                <h3>Connect With Us</h3>
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </footer>
+
+
+    <script>
+        const users = [
+            { username: 'admin', password: 'admin123', role: 'admin' },
+            { username: 'employee1', password: 'employee123', role: 'employee' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginButton = document.getElementById('loginButton');
+            const logoutButton = document.getElementById('logoutButton');
+            const submitLogin = document.getElementById('submitLogin');
+            const submitSignup = document.getElementById('submitSignup');
+            const loginPage = document.getElementById('authPage');
+            const adminDashboard = document.getElementById('adminDashboard');
+            const employeeDashboard = document.getElementById('employeeDashboard');
+            const loginMessage = document.getElementById('loginMessage');
+            const signupMessage = document.getElementById('signupMessage');
+            const adminContent = document.getElementById('adminContent');
+            const employeeTasks = document.getElementById('employeeTasks');
+            const addEmployeeForm = document.getElementById('addEmployeeForm');
+            const addTaskForm = document.getElementById('addTaskForm');
+            const addEmployeeButton = document.getElementById('addEmployeeButton');
+            const addTaskButton = document.getElementById('addTaskButton');
+            const employeeSelect = document.getElementById('employeeSelect');
+            const reviewTasksButton = document.getElementById('reviewTasksButton');
+            const taskReviewContent = document.getElementById('taskReviewContent');
+
+            function showPage(page) {
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                page.classList.add('active');
+            }
+
+            function checkLogin(username, password) {
+                return users.find(user => user.username === username && user.password === password);
+            }
+
+            function handleLogin() {
+                const username = document.getElementById('loginUsername').value;
+                const password = document.getElementById('loginPassword').value;
+                const user = checkLogin(username, password);
+
+                if (user) {
+                    loginMessage.textContent = '';
+                    loginButton.style.display = 'none';
+                    logoutButton.style.display = 'block';
+
+                    if (user.role === 'admin') {
+                        showPage(adminDashboard);
+                        loadAdminDashboard();
+                    } else {
+                        showPage(employeeDashboard);
+                        loadEmployeeDashboard(username);
+                    }
+                    alert("Admin: admin/admin123\nEmployees: employee1/employee123");
+                } else {
+                    loginMessage.textContent = 'Invalid username or password.';
+                }
+            }
+
+            function handleSignup() {
+                const username = document.getElementById('signupUsername').value;
+                const password = document.getElementById('signupPassword').value;
+
+                if (username && password) {
+                    users.push({ username, password, role: 'employee' });
+                    signupMessage.textContent = 'Employee signed up successfully!';
+                    alert('Employee signed up successfully with username: ' + username);
+                    document.getElementById('signupUsername').value = '';
+                    document.getElementById('signupPassword').value = '';
+                } else {
+                    signupMessage.textContent = 'Please enter both username and password.';
+                }
+            }
+
+            function loadAdminDashboard() {
+                adminContent.innerHTML = '<h3>Employee List</h3>';
+                const employeeList = users.filter(user => user.role === 'employee');
+                employeeList.forEach(employee => {
+                    const empDiv = document.createElement('div');
+                    empDiv.textContent = `Username: ${employee.username}`;
+                    adminContent.appendChild(empDiv);
+                });
+                populateEmployeeSelect();
+            }
+
+            function loadEmployeeDashboard(username) {
+                employeeTasks.innerHTML = '';
+                const tasks = JSON.parse(localStorage.getItem(username + '_tasks') || '[]');
+                tasks.forEach((task, index) => {
+                    const taskDiv = document.createElement('div');
+                    taskDiv.classList.add('task');
+                    taskDiv.classList.toggle('completed', task.completed);
+                    taskDiv.innerHTML = `${task.description} (Due: ${task.dueDate} ${task.dueTime}) <button onclick="toggleTaskStatus('${username}', ${index})">Toggle Status</button>`;
+                    employeeTasks.appendChild(taskDiv);
+                });
+            }
+
+            function toggleTaskStatus(username, index) {
+                const tasks = JSON.parse(localStorage.getItem(username + '_tasks') || '[]');
+                tasks[index].completed = !tasks[index].completed;
+                localStorage.setItem(username + '_tasks', JSON.stringify(tasks));
+                loadEmployeeDashboard(username);
+            }
+
+            function populateEmployeeSelect() {
+                employeeSelect.innerHTML = '';
+                users.filter(user => user.role === 'employee').forEach(user => {
+                    const option = document.createElement('option');
+                    option.value = user.username;
+                    option.textContent = user.username;
+                    employeeSelect.appendChild(option);
+                });
+            }
+
+            function addEmployee(username, password) {
+                users.push({ username, password, role: 'employee' });
+                alert('Employee added successfully!');
+                populateEmployeeSelect();
+                loadAdminDashboard();
+            }
+
+            function addTask(employee, description, dueDate, dueTime) {
+                const tasks = JSON.parse(localStorage.getItem(employee + '_tasks') || '[]');
+                tasks.push({ description, dueDate, dueTime, completed: false });
+                localStorage.setItem(employee + '_tasks', JSON.stringify(tasks));
+                alert('Task assigned to ' + employee + '!');
+            }
+
+            function reviewTasks() {
+                taskReviewContent.innerHTML = '';
+                users.filter(user => user.role === 'employee').forEach(user => {
+                    const tasks = JSON.parse(localStorage.getItem(user.username + '_tasks') || '[]');
+                    if (tasks.length > 0) {
+                        const taskDiv = document.createElement('div');
+                        taskDiv.innerHTML = `<h4>${user.username}'s Tasks:</h4>`;
+                        tasks.forEach((task, index) => {
+                            const taskInfo = document.createElement('p');
+                            taskInfo.textContent = `${task.description} (Due: ${task.dueDate} ${task.dueTime}) - ${task.completed ? 'Completed' : 'Pending'}`;
+                            taskDiv.appendChild(taskInfo);
+                        });
+                        taskReviewContent.appendChild(taskDiv);
+                    }
+                });
+            }
+
+            addEmployeeButton.addEventListener('click', () => {
+                addEmployeeForm.style.display = addEmployeeForm.style.display === 'none' ? 'block' : 'none';
+            });
+
+            addTaskButton.addEventListener('click', () => {
+                addTaskForm.style.display = addTaskForm.style.display === 'none' ? 'block' : 'none';
+            });
+
+            reviewTasksButton.addEventListener('click', reviewTasks);
+
+            document.getElementById('submitAddEmployee').addEventListener('click', () => {
+                const username = document.getElementById('newEmployeeUsername').value;
+                const password = document.getElementById('newEmployeePassword').value;
+                if (username && password) {
+                    addEmployee(username, password);
+                } else {
+                    alert('Please enter both username and password.');
+                }
+            });
+
+            document.getElementById('submitAddTask').addEventListener('click', () => {
+                const employee = employeeSelect.value;
+                const description = document.getElementById('taskDescription').value;
+                const dueDate = document.getElementById('taskDueDate').value;
+                const dueTime = document.getElementById('taskDueTime').value;
+                if (employee && description && dueDate && dueTime) {
+                    addTask(employee, description, dueDate, dueTime);
+                } else {
+                    alert('Please fill in all fields.');
+                }
+            });
+
+            loginButton.addEventListener('click', () => showPage(loginPage));
+            logoutButton.addEventListener('click', () => {
+                loginButton.style.display = 'block';
+                logoutButton.style.display = 'none';
+                showPage(loginPage);
+            });
+            submitLogin.addEventListener('click', handleLogin);
+            submitSignup.addEventListener('click', handleSignup);
+        });
+    </script>
+</body>
+</html>
